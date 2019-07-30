@@ -13,7 +13,7 @@ public class MsgCenterFeignClientFallBackFactory implements FallbackFactory<MsgC
 	public MsgCenterFeignClient create(Throwable cause) {
 		return new MsgCenterFeignClient() {
 			@Override
-			public String saveSubmit(String body) {
+			public String saveSubmit() {
 				cause.printStackTrace();
 				System.err.println("消息中心服务熔断！");
 				return null;
