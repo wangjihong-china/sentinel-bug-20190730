@@ -1,0 +1,62 @@
+server:
+  port: 9199
+  servlet:
+    context-path: /
+    session:
+      timeout: 10800
+  tomcat:
+    uri-encoding: UTF-8
+custom:
+  nacos:
+    dataids: 
+    group: DEFAULT_GROUP
+    namespace: 73288796-8484-4568-b2b4-fa0edeaca3b1
+    server: 10.2.7.70:8848
+  service:
+    name: datacenter-service
+spring:
+  application:
+    name: ${custom.service.name}
+  cloud:
+    sentinel:
+      eager: true
+      transport:
+        dashboard: localhost:6060
+        port: 8602
+    nacos:
+      config:
+        group: ${custom.nacos.group}
+        namespace: ${custom.nacos.namespace}
+        refreshable-dataids: ${custom.nacos.dataids}
+        server-addr: ${custom.nacos.server}
+        shared-dataids: ${custom.nacos.dataids}
+      discovery:
+        namespace: ${custom.nacos.namespace}
+        server-addr: ${custom.nacos.server}
+        service: ${custom.service.name}
+  main:
+    allow-bean-definition-overriding: true
+    
+    
+feign: 
+  sentinel:
+    enabled: true
+  httpclient: 
+    enabled: false
+  okhttp: 
+    enabled: true
+msgcenter-service:
+  ribbon:
+    MaxAutoRetries: 0
+    MaxAutoRetriesNextServer: 2
+    ConnectTimeout: 600
+    ReadTimeout: 6000
+    OkToRetryOnAllOperations: true
+
+datacenter-service:
+  ribbon:
+    MaxAutoRetries: 0
+    MaxAutoRetriesNextServer: 2
+    ConnectTimeout: 600
+    ReadTimeout: 6000
+    OkToRetryOnAllOperations: true
