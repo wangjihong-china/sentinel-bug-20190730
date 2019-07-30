@@ -59,3 +59,10 @@ datacenter-service:
     ConnectTimeout: 600
     ReadTimeout: 6000
     OkToRetryOnAllOperations: true
+    
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+    
